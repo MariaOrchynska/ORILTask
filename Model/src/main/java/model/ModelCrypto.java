@@ -1,3 +1,5 @@
+package model;
+
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,6 +12,8 @@ public class ModelCrypto {
     @Column(name = "CryptoId", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
+    @Column(name = "CryptoName", nullable = false)
     String name;
+    @Column(name = "lastPrice", nullable = false)
     long lastPrice;
 }

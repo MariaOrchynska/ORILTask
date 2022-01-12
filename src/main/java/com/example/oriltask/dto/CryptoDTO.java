@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class CryptoDTO {
     private long CryptoIdDTO;
-    private String CryptoName;
-    private long lastPrice;
+    private String CurrencyName;
+    private String CurrencyFirstName;
+    private String CurrencySecondName;
+    private double lastPrice;
 }

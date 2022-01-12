@@ -39,6 +39,12 @@ public class TestController {
         return ResponseEntity.ok(cryptoRepository.findAll());
     }
 
+    @RequestMapping(value="/find/{lastPrise}",method = RequestMethod.GET)
+    public ResponseEntity<List<ModelCrypto>>getByFirstName(@PathVariable("lastPrize") Double lastPrise) {
+        return ResponseEntity.ok(cryptoService.findAllBy()) ;
+    }
+
+
 
 
 

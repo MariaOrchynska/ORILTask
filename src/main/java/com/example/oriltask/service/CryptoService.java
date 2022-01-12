@@ -4,6 +4,7 @@ import com.example.oriltask.dto.CryptoDTO;
 import com.example.oriltask.repository.CryptoRepository;
 import model.ModelCrypto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -34,16 +35,11 @@ public class CryptoService {
                 }).collect(Collectors.toList());
         return list;
     }
-//    public List<CryptoDTO> findAllByFirstName(String currencyFirstName){
-//        List<CryptoDTO> list = cryptoRepository.findAll(currencyFirstName).stream()
-//                .map(e->{
-//                    CryptoDTO cryptoDTO = new CryptoDTO() ;
-//                    cryptoDTO.setCurrencyFirstName(e);
-//                    return cryptoDTO;
-//                }).collect(Collectors.toList());
-//        return list;
-//    }
+    public List<ModelCrypto> findAllBy(){
+        List<ModelCrypto> emps =  cryptoRepository.findAll(Sort.by("lastPrise").descending());
 
+        return emps;
+    }
 
 }
 

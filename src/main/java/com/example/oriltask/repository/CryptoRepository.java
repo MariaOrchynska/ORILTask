@@ -21,6 +21,8 @@ public interface CryptoRepository extends JpaRepository<ModelCrypto,Long> {
     @Override
     List<ModelCrypto> findAll();
     List<ModelCrypto>findByFirstName(String firstName);
-//    void deleteById(long id);
 
+
+    @Query("SELECT e FROM cryptocurrency e WHERE e.lastprize > ?1 ORDER BY e.lastPrize DESC")
+    List<ModelCrypto> findBySalaryGreaterThanJPQL(double salary);
 }

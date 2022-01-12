@@ -52,6 +52,12 @@ public class DataSourceConfig {
 
             @Override
             public List<ModelCrypto> findByFirstName(String firstName) {
+
+                return null ;
+            }
+
+            @Override
+            public List<ModelCrypto> findBySalaryGreaterThanJPQL(double salary) {
                 return null;
             }
 

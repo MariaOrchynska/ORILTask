@@ -2,7 +2,7 @@ package model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+        import javax.persistence.*;
 
 @Data
 @Entity
@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class ModelCrypto {
     @Id
     @Column(name = "CryptoId", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
     @Column(name = "CryptoName", nullable = false)
     String name;

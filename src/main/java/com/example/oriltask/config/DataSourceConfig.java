@@ -48,8 +48,9 @@ public class DataSourceConfig {
 
             @Override
             public List<ModelCrypto> findByFirstName(String firstName) {
-
-                return null;
+                List<ModelCrypto> list = new ArrayList<>();
+                list.add(new ModelCrypto(1, "BTC/USD", "BTC", "USD", 42940.9));
+                return list;
             }
 
             @Override

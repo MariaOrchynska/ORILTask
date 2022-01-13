@@ -9,11 +9,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.RestController;
+
 @EntityScan("com.example.oriltask")
 @SpringBootApplication
 
 public class OrilTaskApplication {
-
 
 
     public static void main(String[] args) {
@@ -21,7 +21,6 @@ public class OrilTaskApplication {
 
 
     }
-
 
 
 }

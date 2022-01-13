@@ -18,10 +18,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 
 @Configuration
@@ -29,8 +26,9 @@ import java.util.function.Function;
 
 public class DataSourceConfig {
     Connection connection = null;
-        Statement statement = null;
+    Statement statement = null;
     ResultSet resultSet = null;
+
     @Bean
     public DataSource datasource() {
         return DataSourceBuilder.create()
@@ -47,36 +45,35 @@ public class DataSourceConfig {
 
 
             @Override
-            public List<ModelCrypto> findByFirstName(String firstName) {
+            public List<ModelCrypto> sortByPrize() {
                 List<ModelCrypto> list = new ArrayList<>();
                 list.add(new ModelCrypto(1, "BTC/USD", "BTC", "USD", 42940.9));
+                list.add(new ModelCrypto(2, "ETH/USD", "ETH", "USD", 3372.6));
+                list.add(new ModelCrypto(3, "XRP/USD", "XRP", "USD", 0.79076));
+                Collections.sort(list, new Comparator<ModelCrypto>() {
+                    @Override
+                    public int compare(ModelCrypto o1, ModelCrypto o2) {
+                        return (int) (o1.getLastPrice() - o2.getLastPrice());
+                    }
+                });
                 return list;
             }
 
             @Override
             public List<ModelCrypto> findAll() {
-                List<ModelCrypto> list = new ArrayList<>();
-                list.add(new ModelCrypto(1, "BTC/USD", "BTC", "USD", 42940.9));
-                list.add(new ModelCrypto(2, "ETH/USD", "ETH", "USD", 3372.6));
-                list.add(new ModelCrypto(3, "XRP/USD", "XRP", "USD", 0.79076));
+                List<ModelCrypto> list1 = new ArrayList<>();
+                list1.add(new ModelCrypto(1, "BTC/USD", "BTC", "USD", 42940.9));
+                list1.add(new ModelCrypto(2, "ETH/USD", "ETH", "USD", 3372.6));
+                list1.add(new ModelCrypto(3, "XRP/USD", "XRP", "USD", 0.79076));
 
-                return list;
+                return list1;
             }
-
-
-
 
             @Override
             public List<ModelCrypto> findAll(Sort sort) {
-//                List<ModelCrypto> list = new ArrayList<>();
-//                list.sort(new Comparator<ModelCrypto>() {
-//                    @Override
-//                    public int compare(ModelCrypto o1, ModelCrypto o2) {
-//                        return (int) (o1.getLastPrice()-o2.getLastPrice());
-//                    }
-//                });
                 return null;
             }
+
 
             @Override
             public List<ModelCrypto> findAllById(Iterable<Long> longs) {
@@ -137,7 +134,7 @@ public class DataSourceConfig {
                 while (rs.next()) {
                     contact.setId(rs.getInt("id"));
                 }
-                return  contact;
+                return contact;
 
 
             }

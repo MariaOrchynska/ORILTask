@@ -30,21 +30,23 @@ public class CryptoService {
                     cryptoDTO.setCurrencyFirstName(e.getCurrencyFirstName());
                     cryptoDTO.setCurrencySecondName(e.getCurrencySecondName());
                     cryptoDTO.setCurrencyName(e.getCurrencyName());
-                    cryptoDTO.setLastPrice( e.getLastPrice());
+                    cryptoDTO.setLastPrice(e.getLastPrice());
                     return cryptoDTO;
                 }).collect(Collectors.toList());
         return list;
     }
-    public List<CryptoDTO> findAllByFirstName(String firstName){
-        List<CryptoDTO> list = cryptoRepository.findByFirstName(firstName).stream()
-                .map(e->{
-                    CryptoDTO cryptoDTO = new CryptoDTO() ;
+
+    public List<CryptoDTO> findAllSortedPrize() {
+        List<CryptoDTO> list = cryptoRepository.sortByPrize().stream()
+                .map(e -> {
+                    CryptoDTO cryptoDTO = new CryptoDTO();
                     cryptoDTO.setCurrencyFirstName(e.getCurrencyFirstName());
                     cryptoDTO.setCurrencySecondName(e.getCurrencySecondName());
                     cryptoDTO.setCurrencyName(e.getCurrencyName());
-                    cryptoDTO.setLastPrice( e.getLastPrice());
+                    cryptoDTO.setLastPrice(e.getLastPrice());
                     return cryptoDTO;
                 }).collect(Collectors.toList());
+
         return list;
     }
 

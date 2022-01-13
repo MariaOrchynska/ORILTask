@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/cryptos")
 public class TestController {
-@Autowired
+    @Autowired
     CryptoService cryptoService;
     @Autowired
     CryptoRepository cryptoRepository;
@@ -27,33 +27,21 @@ public class TestController {
                 + "</body></html>";
     }
 
-
-//    @GetMapping("/test")
-//    public ResponseEntity test() {
-//        return ResponseEntity.ok(cryptoService.findAllCryptos());
-//    }
-
-
     @GetMapping("/list")
-    public ResponseEntity <List<CryptoDTO>>list() {
+    public ResponseEntity<List<CryptoDTO>> list() {
         return ResponseEntity.ok(cryptoService.findAllCryptos());
     }
 
-
-
-    @RequestMapping(value = "/id",method = RequestMethod.GET)
-    public ResponseEntity<ModelCrypto> id(@PathVariable("id" )Long id) {
-        return  ResponseEntity.ok(cryptoRepository.getById(id));
+    @GetMapping("/sortedNormally")
+    public ResponseEntity<List<CryptoDTO>> sortedByPrize() {
+        return ResponseEntity.ok(cryptoService.findAllSortedPrize());
     }
 
 
-    @RequestMapping(value="/find/{firstName}",method = RequestMethod.GET)
-    public ResponseEntity<List<CryptoDTO>>getByFirstName(@PathVariable("firstName") String firstName) {
-        return ResponseEntity.ok(cryptoService.findAllByFirstName(firstName)) ;
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+    public ResponseEntity<ModelCrypto> id(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(cryptoRepository.getById(id));
     }
-
-
-
 }
 
 

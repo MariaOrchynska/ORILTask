@@ -40,6 +40,9 @@ public class CryptoService {
                 .map(e->{
                     CryptoDTO cryptoDTO = new CryptoDTO() ;
                     cryptoDTO.setCurrencyFirstName(e.getCurrencyFirstName());
+                    cryptoDTO.setCurrencySecondName(e.getCurrencySecondName());
+                    cryptoDTO.setCurrencyName(e.getCurrencyName());
+                    cryptoDTO.setLastPrice( e.getLastPrice());
                     return cryptoDTO;
                 }).collect(Collectors.toList());
         return list;

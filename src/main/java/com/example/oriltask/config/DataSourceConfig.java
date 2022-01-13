@@ -1,6 +1,7 @@
 package com.example.oriltask.config;
 
 import com.example.oriltask.repository.CryptoRepository;
+import lombok.SneakyThrows;
 import model.ModelCrypto;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -14,14 +15,22 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.FluentQuery;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-@EnableJpaRepositories
 @Configuration
+@EnableJpaRepositories
+
 public class DataSourceConfig {
+    Connection connection = null;
+        Statement statement = null;
+    ResultSet resultSet = null;
     @Bean
     public DataSource datasource() {
         return DataSourceBuilder.create()
@@ -32,37 +41,39 @@ public class DataSourceConfig {
                 .build();
     }
 
-@Bean
-    CryptoRepository cryptoRepository(){
+    @Bean
+    CryptoRepository cryptoRepository() {
         return new CryptoRepository() {
+
+
             @Override
-            public ModelCrypto findById(long id) {
-                return new ModelCrypto(1,"BTC/USD","BTC","USD",42940.9);
+            public List<ModelCrypto> findByFirstName(String firstName) {
+
+                return null;
             }
 
             @Override
             public List<ModelCrypto> findAll() {
                 List<ModelCrypto> list = new ArrayList<>();
-                list.add(new ModelCrypto(1,"BTC/USD","BTC","USD",42940.9));
-                list.add(new ModelCrypto(2,"ETH/USD","ETH","USD",3372.6));
-                list.add(new ModelCrypto(3,"XRP/USD","XRP","USD",0.79076));
+                list.add(new ModelCrypto(1, "BTC/USD", "BTC", "USD", 42940.9));
+                list.add(new ModelCrypto(2, "ETH/USD", "ETH", "USD", 3372.6));
+                list.add(new ModelCrypto(3, "XRP/USD", "XRP", "USD", 0.79076));
 
-                return list ;
+                return list;
             }
 
-            @Override
-            public List<ModelCrypto> findByFirstName(String firstName) {
 
-                return null ;
-            }
 
-            @Override
-            public List<ModelCrypto> findBySalaryGreaterThanJPQL(double salary) {
-                return null;
-            }
 
             @Override
             public List<ModelCrypto> findAll(Sort sort) {
+//                List<ModelCrypto> list = new ArrayList<>();
+//                list.sort(new Comparator<ModelCrypto>() {
+//                    @Override
+//                    public int compare(ModelCrypto o1, ModelCrypto o2) {
+//                        return (int) (o1.getLastPrice()-o2.getLastPrice());
+//                    }
+//                });
                 return null;
             }
 
@@ -111,9 +122,23 @@ public class DataSourceConfig {
                 return null;
             }
 
+
+            @SneakyThrows
             @Override
             public ModelCrypto getById(Long aLong) {
-                return null;
+                int k = 0;
+                ResultSet rs = statement.executeQuery("select count(*) FROM Users");
+                rs.next();
+                k = rs.getInt("count(*)");
+                String sql = "select id FROM Users where id= " + k;
+                rs = statement.executeQuery(sql);
+                ModelCrypto contact = new ModelCrypto(1, "BTC/USD", "BTC", "USD", 42940.9);
+                while (rs.next()) {
+                    contact.setId(rs.getInt("id"));
+                }
+                return  contact;
+
+
             }
 
             @Override
@@ -201,7 +226,9 @@ public class DataSourceConfig {
                 return null;
             }
         };
+    }
 }
 
 
-}
+
+

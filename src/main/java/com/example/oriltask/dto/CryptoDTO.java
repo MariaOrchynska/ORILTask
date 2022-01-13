@@ -2,6 +2,9 @@ package com.example.oriltask.dto;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 @Data
 public class CryptoDTO {
     private long CryptoIdDTO;

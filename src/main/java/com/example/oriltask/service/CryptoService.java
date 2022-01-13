@@ -35,10 +35,14 @@ public class CryptoService {
                 }).collect(Collectors.toList());
         return list;
     }
-    public List<ModelCrypto> findAllBy(){
-        List<ModelCrypto> emps =  cryptoRepository.findAll(Sort.by("lastPrise").descending());
-
-        return emps;
+    public List<CryptoDTO> findAllByFirstName(String firstName){
+        List<CryptoDTO> list = cryptoRepository.findByFirstName(firstName).stream()
+                .map(e->{
+                    CryptoDTO cryptoDTO = new CryptoDTO() ;
+                    cryptoDTO.setCurrencyFirstName(e.getCurrencyFirstName());
+                    return cryptoDTO;
+                }).collect(Collectors.toList());
+        return list;
     }
 
 }

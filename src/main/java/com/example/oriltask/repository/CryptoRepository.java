@@ -12,17 +12,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.function.Function;
 @Repository
-
 public interface CryptoRepository extends JpaRepository<ModelCrypto,Long> {
 
 
-    ModelCrypto findById(long id);
 
-    @Override
-    List<ModelCrypto> findAll();
     List<ModelCrypto>findByFirstName(String firstName);
 
 
-    @Query("SELECT e FROM cryptocurrency e WHERE e.lastprize > ?1 ORDER BY e.lastPrize DESC")
-    List<ModelCrypto> findBySalaryGreaterThanJPQL(double salary);
+
 }
